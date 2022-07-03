@@ -17,16 +17,16 @@ func main() {
 	log := log.Default()
 
 	log.Println("-------EASY SPECTER - AUTHOR PHUONGAZ--------")
-	log.Println("1. XBOX ACCOUNT LOG")
-	log.Println("	+ Xbox account required")
+	log.Println("1. XBOX ACCOUNT LOG: Xbox account required")
 	log.Println("	+ Login command: xbox login")
-	log.Println("	+ Spawn command: xbox join ip:port")
-	log.Println("2. JOIN GAME")
+	log.Println("	+ Spawn command: xbox join <ip:port>")
+	log.Println("2. JOIN GAME: No account required")
 	log.Println("	+ Must disable xbox-auth in server")
-	log.Println("	+ Spawn command: join ip:port")
-	log.Println("3. LIST")
-	log.Println("	+ List all specters")
+	log.Println("	+ Spawn command: join <ip:port>")
+	log.Println("3. LIST: List all specters")
 	log.Println("	+ Command: list")
+	log.Println("4. QUIT: Quit specter")
+	log.Println("	+ Command: quit <specter name>")
 	log.Println("---------------------------------")
 	readConsole(log)
 }
@@ -81,6 +81,15 @@ func readConsole(log *log.Logger) {
 			for _, spt := range specters {
 				log.Println(spt.Conn.IdentityData().DisplayName + " in " + spt.Address)
 			}
+		case "quit":
+			name := args[0]
+			if spt, ok := specters[name]; ok {
+				spt.Conn.Close()
+				delete(specters, name)
+				log.Println("Specter " + name + " quit")
+				return
+			}
+			log.Println("Specter " + name + " not found")
 		}
 	}
 }
