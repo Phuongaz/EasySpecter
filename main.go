@@ -8,8 +8,6 @@ import (
 	"github.com/phuongaz/easyspecter/specter"
 )
 
-var specters = map[string]*specter.Specter{}
-
 func main() {
 	log := log.New(os.Stdout, "[SPECTER] ", log.LstdFlags)
 	log.Println("-------EASY SPECTER - AUTHOR PHUONGAZ--------")
