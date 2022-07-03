@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/phuongaz/easyspecter/commands"
-	"github.com/phuongaz/easyspecter/specter"
 )
 
 func main() {
