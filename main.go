@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/phuongaz/easyspecter/specter"
@@ -13,9 +14,7 @@ import (
 var specters = map[string]*specter.Specter{}
 
 func main() {
-
-	log := log.Default()
-
+	log := log.New(os.Stdout, "[SPECTER] ", log.LstdFlags)
 	log.Println("-------EASY SPECTER - AUTHOR PHUONGAZ--------")
 	log.Println("1. XBOX ACCOUNT LOG: Xbox account required")
 	log.Println("	+ Login command: xbox login")
@@ -27,6 +26,9 @@ func main() {
 	log.Println("	+ Command: list")
 	log.Println("4. QUIT: Quit specter")
 	log.Println("	+ Command: quit <specter name>")
+	log.Println("5. SPECTER: Specter control")
+	log.Println("	+ Chat Command: specter chat <specter name> <message>")
+	log.Println("	+ Move Command: specter move <specter name> <x> <y> <z>")
 	log.Println("---------------------------------")
 	readConsole(log)
 }
@@ -42,11 +44,11 @@ func readConsole(log *log.Logger) {
 		switch args[0] {
 		case "xbox":
 			if args[1] == "login" {
-				log.Println("[SPECTER] Login...")
+				log.Println("Login...")
 				if err := xbl.InitializeToken(log); err != nil {
-					log.Println("[SPECTER] Error: ", err)
+					log.Println("Error: ", err)
 				}
-				log.Println("[SPECTER] Login success")
+				log.Println("Login success")
 			}
 			if args[1] == "join" {
 				spt := specter.SpecterXbox{
@@ -82,14 +84,31 @@ func readConsole(log *log.Logger) {
 				log.Println(spt.Conn.IdentityData().DisplayName + " in " + spt.Address)
 			}
 		case "quit":
-			name := args[0]
+			name := args[1]
 			if spt, ok := specters[name]; ok {
 				spt.Conn.Close()
 				delete(specters, name)
 				log.Println("Specter " + name + " quit")
-				return
+			} else {
+				log.Println("Specter " + name + " not found")
 			}
-			log.Println("Specter " + name + " not found")
+		case "specter":
+			spt := specters[args[1]]
+			if spt == nil {
+				log.Println("Specter " + args[1] + " not found")
+			}
+			if args[2] == "chat" {
+				message := strings.Join(args[3:], " ")
+				spt.Chat(message)
+				log.Println(spt.Conn.IdentityData().DisplayName + ": " + message)
+			}
+			if args[2] == "move" {
+				x, _ := strconv.ParseFloat(args[3], 32)
+				y, _ := strconv.ParseFloat(args[4], 32)
+				z, _ := strconv.ParseFloat(args[5], 32)
+				spt.Move(float32(x), float32(y), float32(z))
+				log.Println(spt.Conn.IdentityData().DisplayName + " move to " + args[3] + " " + args[4] + " " + args[5])
+			}
 		}
 	}
 }

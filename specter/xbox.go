@@ -7,13 +7,13 @@ import (
 )
 
 func (s *SpecterXbox) Login(addr string) (specter *SpecterXbox, err error) {
-	s.Log.Println("SPECTER: Login...")
+	s.Log.Println("Login...")
 	if err := xbl.InitializeToken(s.Log); err != nil {
-		s.Log.Println("SPECTER: Error: ", err)
+		s.Log.Println("Error: ", err)
 	}
-	s.Log.Println("SPECTER: Login success")
+	s.Log.Println("Login success")
 
-	s.Log.Println("SPECTER: Join...")
+	s.Log.Println("Join...")
 	conn, err := minecraft.Dialer{
 		ClientData:  login.ClientData{},
 		TokenSource: xbl.TokenSrc,
@@ -21,9 +21,9 @@ func (s *SpecterXbox) Login(addr string) (specter *SpecterXbox, err error) {
 
 	s.Conn = conn
 	if err != nil {
-		s.Log.Println("SPECTER: Error: ", err)
+		s.Log.Println("Error: ", err)
 		return nil, err
 	}
-	s.Log.Println("SPECTER: " + conn.IdentityData().DisplayName + " joined")
+	s.Log.Println(conn.IdentityData().DisplayName + " joined")
 	return s, nil
 }
