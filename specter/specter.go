@@ -8,6 +8,8 @@ import (
 	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )
 
+var specters = map[string]*Specter{}
+
 type Specter struct {
 	Conn    *minecraft.Conn
 	Log     *log.Logger
@@ -36,4 +38,12 @@ func (s *Specter) Move(x, y, z float32) {
 		OnGround: true,
 		Tick:     uint64(20),
 	})
+}
+
+func GetSpecters() map[string]*Specter {
+	return specters
+}
+
+func AddSpecter(s *Specter) {
+	specters[s.Conn.IdentityData().DisplayName] = s
 }
