@@ -25,7 +25,7 @@ type SpecterNormal struct {
 }
 
 type SpecterInterface interface {
-	Login(addr string) (specter *SpecterInterface, err error)
+	Login(addr string) (specter *Specter, err error)
 }
 
 func (s *Specter) Chat(message string) {
@@ -40,10 +40,22 @@ func (s *Specter) Move(x, y, z float32) {
 	})
 }
 
+func (s *Specter) Quit() {
+	s.Conn.Close()
+	delete(specters, s.Conn.IdentityData().DisplayName)
+}
+
 func GetSpecters() map[string]*Specter {
 	return specters
 }
 
 func AddSpecter(s *Specter) {
 	specters[s.Conn.IdentityData().DisplayName] = s
+}
+
+func GetSpecter(name string) (*Specter, bool) {
+	if specter, ok := specters[name]; ok {
+		return specter, true
+	}
+	return nil, false
 }

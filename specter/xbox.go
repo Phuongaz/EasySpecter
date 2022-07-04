@@ -7,7 +7,6 @@ import (
 )
 
 func (s *SpecterXbox) Login(addr string) (specter *SpecterXbox, err error) {
-	s.Log.Println("Login...")
 	if err := xbl.InitializeToken(s.Log); err != nil {
 		s.Log.Println("Error: ", err)
 	}
@@ -21,7 +20,6 @@ func (s *SpecterXbox) Login(addr string) (specter *SpecterXbox, err error) {
 
 	s.Conn = conn
 	if err != nil {
-		s.Log.Println("Error: ", err)
 		return nil, err
 	}
 	s.Log.Println(conn.IdentityData().DisplayName + " joined")

@@ -14,8 +14,7 @@ func (s *SpecterNormal) Login(addr string) (specter *SpecterNormal, err error) {
 	}.Dial("raknet", addr)
 
 	if err != nil {
-		s.Log.Println(err)
-		return
+		return nil, err
 	}
 	s.Conn = conn
 	s.Log.Println(conn.IdentityData().DisplayName + " joined")

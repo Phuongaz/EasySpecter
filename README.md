@@ -13,11 +13,11 @@ A simple specter for Minecraft Bedrock Edition use [gophertunnel](https://github
 - `xbox login` login xbox account
 - `xbox join <ip:port>` Spawn specter to server with xbox account
 - `join <ip:port>` Spawn specter non xbox account (must disable `xbox-auth` in server)
-- `quit <specter name>` Quit specter
-- `list` List specters
 - Specter commands:
     + `specter <specter name> chat <message>`
     + `specter <specter name> move <x> <y> <z>`
+    + `specter quit`
+    + `specter list`
 
 # Todo
 - Control specter
