@@ -1,6 +1,6 @@
 # EasySpecter
 
-A simple specter for Minecraft Bedrock Edition use [gophertunnel](https://github.com/Sandertv/gophertunnel)
+A simple specter for Minecraft Bedrock Edition based on [gophertunnel](https://github.com/Sandertv/gophertunnel)
 
 # How to use
 
@@ -19,7 +19,13 @@ A simple specter for Minecraft Bedrock Edition use [gophertunnel](https://github
     + `specter quit`
     + `specter list`
 
-# Todo
-- Control specter
-- More commmands
-- More settings
+# Using as library
+
+- Get a package
+
+    ```
+    go get github.com/phuongaz/easyspecter
+    ```
+
+- Create a specter
+    + [Wiki](https://github.com/Phuongaz/EasySpecter/wiki)
