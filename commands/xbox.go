@@ -34,7 +34,7 @@ func (Xbox) Execute(parameters []string, l *log.Logger) {
 				Address: parameters[1],
 			},
 		}
-		_, err := spt.Login(parameters[1])
+		_, err := spt.Login()
 		if err != nil {
 			log.Println("Error: ", err)
 			return

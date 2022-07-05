@@ -6,7 +6,7 @@ import (
 	"github.com/sandertv/gophertunnel/minecraft/protocol/login"
 )
 
-func (s *SpecterXbox) Login(addr string) (specter *SpecterXbox, err error) {
+func (s *SpecterXbox) Login() (specter *SpecterXbox, err error) {
 	if err := xbl.InitializeToken(s.Log); err != nil {
 		s.Log.Println("Error: ", err)
 	}
@@ -16,7 +16,7 @@ func (s *SpecterXbox) Login(addr string) (specter *SpecterXbox, err error) {
 	conn, err := minecraft.Dialer{
 		ClientData:  login.ClientData{},
 		TokenSource: xbl.TokenSrc,
-	}.Dial("raknet", addr)
+	}.Dial("raknet", s.Address)
 
 	s.Conn = conn
 	if err != nil {

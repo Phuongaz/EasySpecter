@@ -21,7 +21,7 @@ func (Join) Execute(parameters []string, l *log.Logger) {
 		},
 		Name: parameters[0],
 	}
-	_, err := spt.Login(spt.Address)
+	_, err := spt.Login()
 	if err != nil {
 		log.Println("Error: ", err)
 		return

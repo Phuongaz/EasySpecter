@@ -25,7 +25,7 @@ type SpecterNormal struct {
 }
 
 type SpecterInterface interface {
-	Login(addr string) (specter *Specter, err error)
+	Login() (specter *Specter, err error)
 }
 
 func (s *Specter) Chat(message string) {
