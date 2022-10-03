@@ -1,6 +1,8 @@
 package specter
 
 import (
+	"context"
+
 	"github.com/phuongaz/easyspecter/xbl"
 	"github.com/sandertv/gophertunnel/minecraft"
 	"github.com/sandertv/gophertunnel/minecraft/protocol/login"
@@ -11,12 +13,13 @@ func (s *SpecterXbox) Login() (specter *SpecterXbox, err error) {
 		s.Log.Println("Error: ", err)
 	}
 	s.Log.Println("Login success")
-
 	s.Log.Println("Join...")
+	ctx := context.Context(context.Background())
+
 	conn, err := minecraft.Dialer{
 		ClientData:  login.ClientData{},
 		TokenSource: xbl.TokenSrc,
-	}.Dial("raknet", s.Address)
+	}.DialContext(ctx, "raknet", s.Address)
 
 	s.Conn = conn
 	if err != nil {

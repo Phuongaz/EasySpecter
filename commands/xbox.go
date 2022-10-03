@@ -27,7 +27,6 @@ func (Xbox) Execute(parameters []string, l *log.Logger) {
 			ReadConsole(l)
 			return
 		}
-		l.Println("Join...")
 		spt := specter.SpecterXbox{
 			Specter: specter.Specter{
 				Log:     l,
