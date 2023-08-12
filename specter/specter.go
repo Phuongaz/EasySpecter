@@ -29,19 +29,28 @@ type SpecterInterface interface {
 }
 
 func (s *Specter) Chat(message string) {
-	s.Conn.WritePacket(&packet.Text{TextType: packet.TextTypeChat, Message: message})
+	err := s.Conn.WritePacket(&packet.Text{TextType: packet.TextTypeChat, Message: message})
+	if err != nil {
+		return
+	}
 }
 
 func (s *Specter) Move(x, y, z float32) {
-	s.Conn.WritePacket(&packet.CorrectPlayerMovePrediction{
+	err := s.Conn.WritePacket(&packet.CorrectPlayerMovePrediction{
 		Position: mgl32.Vec3{x, y, z},
 		OnGround: true,
 		Tick:     uint64(20),
 	})
+	if err != nil {
+		return
+	}
 }
 
 func (s *Specter) Quit() {
-	s.Conn.Close()
+	err := s.Conn.Close()
+	if err != nil {
+		return
+	}
 	delete(specters, s.Conn.IdentityData().DisplayName)
 }
 

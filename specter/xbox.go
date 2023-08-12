@@ -14,7 +14,7 @@ func (s *SpecterXbox) Login() (specter *SpecterXbox, err error) {
 	}
 	s.Log.Println("Login success")
 	s.Log.Println("Join...")
-	ctx := context.Context(context.Background())
+	ctx := context.Background()
 
 	conn, err := minecraft.Dialer{
 		ClientData:  login.ClientData{},
